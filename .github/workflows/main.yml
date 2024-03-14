@@ -129,22 +129,50 @@ jobs:
           tags: shft1/kittygram_gateway:latest
 
 
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   needs:
-  #     - build_and_push_backend_to_docker_hub
-  #     - build_and_push_frontend_to_docker_hub
-  #     - build_and_push_gateway_to_docker_hub
+  deploy:
+    runs-on: ubuntu-latest
+    needs:
+      - build_and_push_backend_to_docker_hub
+      - build_and_push_frontend_to_docker_hub
+      - build_and_push_gateway_to_docker_hub
     
-  #   steps:
-  #     - name: Check out the repo
-  #       uses: actions/checkout@v3
-  #     - name: Copy docker-compose.yml on server
-  #       uses: appleboy/scp-action@master
-  #       with:
-  #         host: ${{ secrets.HOST }}
-  #         username: ${{ secrets.USER }}
-  #         key: ${{ secrets.SSH_KEY }}
-  #         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-  #         source: "docker-compose.yml"
-  #         target: 
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+      - name: Copy docker-compose.yml on server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          source: "docker-compose.yml"
+          target: "kittygram"
+      - name: Executing remote ssh commands to deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          script: |
+            cd kittygram
+            sudo docker compose pull
+            sudo docker compose down
+            sudo docker compose up -d
+            sudo docker compose exec backend python manage.py migrate
+            sudo docker compose exec backend python manage.py collectstatic
+            sudo docker compose exec backend cp -r /app/collected_static/. /backend_static/static/
+
+
+  send_message:
+    runs-on: ubuntu-latest
+    needs: deploy
+    
+    steps:
+      - name: Send message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: Делой kittygram успешно выполнен!
