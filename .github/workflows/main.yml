@@ -64,7 +64,7 @@ jobs:
         with:
           context: ./backend/
           push: true
-          tags: shft1/kitty_backend:latest
+          tags: shft1/kittygram_backend:latest
   
   frontend_test:
     runs-on: ubuntu-latest
@@ -105,7 +105,7 @@ jobs:
         with:
           context: ./frontend/
           push: true
-          tags: shft1/kitty_frontend:latest
+          tags: shft1/kittygram_frontend:latest
   
   build_and_push_gateway_to_docker_hub:
     name: Push Nginx image to DockerHub
@@ -126,7 +126,7 @@ jobs:
         with:
           context: ./nginx/
           push: true
-          tags: shft1/kitty_gateway:latest
+          tags: shft1/kittygram_gateway:latest
 
 
   # deploy:
