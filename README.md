@@ -1,4 +1,4 @@
-[![Main Kitty workflow](https://github.com/shft1/kittygram_final/actions/workflows/main.yml/badge.svg?event=workflow_run)](https://github.com/shft1/kittygram_final/actions/workflows/main.yml)
+[![Main Kitty workflow](https://github.com/shft1/kittygram_final/actions/workflows/main.yml/badge.svg)](https://github.com/shft1/kittygram_final/actions/workflows/main.yml)
 
 ## О проекте:
 Проект Kittygram предоставляет площадку для размещению своих любимых животных
