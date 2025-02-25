@@ -1,55 +1,91 @@
+# CuteCat - площадка для размещения своих любимых животных
+
 [![Main Kitty workflow](https://github.com/shft1/kittygram_final/actions/workflows/main.yml/badge.svg)](https://github.com/shft1/kittygram_final/actions/workflows/main.yml)
 
-## О проекте:
-Проект Kittygram предоставляет площадку для размещению своих любимых животных
+<img width="884" alt="image" src="https://github.com/user-attachments/assets/c03243e5-801a-4c25-8803-dc2744216e32" />
 
-## Стек технологий:
-- Djando
-- React
-- Docker
-- Postgres
+---
 
-## Как развернуть проект:
-- Установить Docker
-- Заполнить файл env
-- Запустить docker compose 
+### Стек технологий:
+Python, Django REST Framework, Docker, Docker Compose, SQLite, PostgreSQL, Nginx, GitHub Actions, React
 
-## Как заполнить файл env ?:
-- POSTGRES_DB - имя базы данных 
-- POSTGRES_USER - имя пользователя с правами к базе
-- POSTGRES_PASSWORD - пароль пользователя
-- DB_NAME - имя контейнера, в котором запущена СУБД
-- DB_PORT - порт, на котором работает контейнер с СУБД
-- SQLITE - для использования базы данных sqlite надо передать значение True/true
-- SECRET_KEY - для секретного ключа
-- DEBUG - что включения режима отладки значение True/true
-- ALLOWED_HOSTS - разрешенные хосты
+---
 
-## Что нужно сделать
+### Инструкция по развертыванию:
+**Клонируйте репозиторий:**
 
-Настроить запуск проекта Kittygram в контейнерах и CI/CD с помощью GitHub Actions
-
-## Как проверить работу с помощью автотестов
-
-В корне репозитория создайте файл tests.yml со следующим содержимым:
-```yaml
-repo_owner: ваш_логин_на_гитхабе
-kittygram_domain: полная ссылка (https://доменное_имя) на ваш проект Kittygram
-taski_domain: полная ссылка (https://доменное_имя) на ваш проект Taski
-dockerhub_username: ваш_логин_на_докерхабе
+```
+git clone git@github.com:shft1/CuteCat.git
 ```
 
-Скопируйте содержимое файла `.github/workflows/main.yml` в файл `kittygram_workflow.yml` в корневой директории проекта.
+**Cоздайте и активируйте виртуальное окружение:**
 
-Для локального запуска тестов создайте виртуальное окружение, установите в него зависимости из backend/requirements.txt и запустите в корневой директории проекта `pytest`.
+```
+python3 -m venv venv
+```
 
-## Чек-лист для проверки перед отправкой задания
+* _Если у вас Linux/macOS_
 
-- Проект Taski доступен по доменному имени, указанному в `tests.yml`.
-- Проект Kittygram доступен по доменному имени, указанному в `tests.yml`.
-- Пуш в ветку main запускает тестирование и деплой Kittygram, а после успешного деплоя вам приходит сообщение в телеграм.
-- В корне проекта есть файл `kittygram_workflow.yml`.
+    ```
+    source venv/bin/activate
+    ```
+* _Если у вас Windows_
 
-## Автор 
+    ```
+    source venv/scripts/activate
+    ```
+
+**Установите зависимости из файла requirements.txt:**
+
+```
+pip install -r requirements.txt
+```
+
+**Заполните файл .env в директории `backend` :**
+```
+POSTGRES_DB - имя базы данных (если не указать, то БД - SQLite)
+POSTGRES_USER - имя пользователя с правами к базе
+POSTGRES_PASSWORD - пароль пользователя
+DB_NAME - имя контейнера, в котором запущена СУБД
+DB_PORT - порт, на котором работает контейнер с СУБД
+SECRET_KEY - для секретного ключа
+DEBUG - что включения режима отладки значение True/true
+ALLOWED_HOSTS - разрешенные хосты
+```
+
+**Запустите приложение CuteCat командой:**
+```
+docker compose up
+```
+
+---
+
+### Дополнительные возможности для разработчиков
+
+Пуш в ветку main запускает CI/CD (тестирование и деплой) Kittygram, а после успешного деплоя вам приходит сообщение в телеграм.
+
+---
+
+### Примеры использования
+
+**_Форма регистрации_**
+
+<img width="627" alt="image" src="https://github.com/user-attachments/assets/054289ad-e72f-4cad-8736-36f4482e92fc" />
+
+**_Форма создания поста_**
+
+<img width="1210" alt="image" src="https://github.com/user-attachments/assets/b722bfa4-6206-4669-8dc3-10274080687e" />
+
+**_Главная страница_**
+
+<img width="1234" alt="image" src="https://github.com/user-attachments/assets/b189cbf6-b678-48ff-aa78-6570879d37d3" />
+
+**_Страница котика_**
+
+<img width="1217" alt="image" src="https://github.com/user-attachments/assets/c01388ad-f7e9-43e2-abef-4d0b076a9e3e" />
+
+---
+
+### Автор 
 Алексей
 [Ссылка на гитхаб](https://github.com/shft1)
